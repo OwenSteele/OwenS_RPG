@@ -1,0 +1,53 @@
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\TestEngine.dll
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\TestEngine.pdb
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\Engine.dll
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\Engine.pdb
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\obj\Debug\TestEngine.csprojAssemblyReference.cache
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\obj\Debug\TestEngine.csproj.CoreCompileInputs.cache
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\obj\Debug\TestEngine.csproj.CopyComplete
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\obj\Debug\TestEngine.dll
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\obj\Debug\TestEngine.pdb
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\GameData\GameItems.xml
+C:\Users\owenf\source\repos\SOSCSRPG\TestEngine\bin\Debug\bin\Debug\GameData\GameItems.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\bin\Debug\GameData\GameItems.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\GameData\GameItems.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\GameData\Locations.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\GameData\Monsters.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\GameData\Quests.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\GameData\Recipes.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\GameData\Traders.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Locations\FarmFields.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Locations\Farmhouse.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Locations\HerbalistsGarden.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Locations\HerbalistsHut.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Locations\Home.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Locations\SpiderForest.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Locations\TownGate.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Locations\TownSquare.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Locations\Trader.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Monsters\GiantSpider.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Monsters\Rat.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Images\Monsters\Snake.png
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\TestEngine.dll
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\TestEngine.pdb
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Engine.dll
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Engine.pdb
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\obj\Debug\TestEngine.csprojAssemblyReference.cache
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\obj\Debug\TestEngine.csproj.CoreCompileInputs.cache
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\obj\Debug\TestEngine.csproj.CopyComplete
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\obj\Debug\TestEngine.dll
+C:\Users\owenf\OneDrive\CODING\C#\repos\RPG NEW\SOSCSRPG\TestEngine\obj\Debug\TestEngine.pdb

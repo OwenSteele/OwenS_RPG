@@ -1,0 +1,149 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Input;
+using Engine.EventArgs;
+using Engine.Models;
+using Engine.ViewModels;
+using WPFUI;
+
+namespace GameEngine
+{
+    /// <summary>
+    /// https://www.youtube.com/watch?v=hiaD2mi5Lm8&list=PLvt_WhOWCiEi0GEpvlv34PPsmvVlmpi9u&index=26
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private readonly GameSession _gameSession = new GameSession();
+
+        private readonly Dictionary<Key, Action> _userInputActions = new Dictionary<Key, Action>();
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            InitializeUserDetails();
+
+            InitializeUserInputActions();
+
+            _gameSession.OnMessageRaised += OnGameMessageRaised;
+            DataContext = _gameSession; //xaml will use data context
+        }
+
+        #region user input keys
+        private void InitializeUserInputActions()
+        {
+            List<Key> userInputActionKeys = new List<Key>();
+            if(!_gameSession.GetLeftHandedControlsState)
+            {
+                userInputActionKeys.Add(Key.W); //north
+                userInputActionKeys.Add(Key.D); //east
+                userInputActionKeys.Add(Key.S); //south
+                userInputActionKeys.Add(Key.A); //west
+                userInputActionKeys.Add(Key.Space); //attack
+                userInputActionKeys.Add(Key.H); //heal
+                userInputActionKeys.Add(Key.T); //trader
+                userInputActionKeys.Add(Key.M); //map
+                userInputActionKeys.Add(Key.Escape); //help/tutorial
+            }
+            else
+            {
+                userInputActionKeys.Add(Key.I); //north
+                userInputActionKeys.Add(Key.L); //east
+                userInputActionKeys.Add(Key.K); //south
+                userInputActionKeys.Add(Key.J); //west
+                userInputActionKeys.Add(Key.Space); //attack
+                userInputActionKeys.Add(Key.H); //heal
+                userInputActionKeys.Add(Key.T); //trader
+                userInputActionKeys.Add(Key.M); //map
+                userInputActionKeys.Add(Key.Escape); //help/tutorial
+            }
+            _userInputActions.Add(userInputActionKeys[0], () => _gameSession.MoveNorth());
+            _userInputActions.Add(userInputActionKeys[1], () => _gameSession.MoveEast());
+            _userInputActions.Add(userInputActionKeys[2], () => _gameSession.MoveSouth());
+            _userInputActions.Add(userInputActionKeys[3], () => _gameSession.MoveWest());
+            _userInputActions.Add(userInputActionKeys[4], () => _gameSession.AttackCurrentMonster());
+            _userInputActions.Add(userInputActionKeys[5], () => _gameSession.UseCurrentConsumable());
+            _userInputActions.Add(userInputActionKeys[6], () => OnClick_DisplayTraderScreen());
+            _userInputActions.Add(userInputActionKeys[7], () => OnClick_DisplayMapScreen());
+            _userInputActions.Add(userInputActionKeys[8], () => OnClick_DisplayTutorialScreen());
+
+            userInputActionKeys.Clear();
+
+        }
+        public void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if(_userInputActions.ContainsKey(e.Key))
+                _userInputActions[e.Key].Invoke();
+
+        }
+            #endregion
+        public void OnLoad_MainWindow(object sender, RoutedEventArgs e)
+        {
+            _gameSession.GameInitialise();
+
+            if (_gameSession.GetOpenTutorialWindowOnLaunchState)
+                OnClick_DisplayTutorialScreen();
+        }
+        #region OnClick Events
+        private void OnClick_MoveNorth(object sender, RoutedEventArgs e)=>
+            _gameSession.MoveNorth();
+        private void OnClick_MoveWest(object sender, RoutedEventArgs e)=>
+            _gameSession.MoveWest();
+        private void OnClick_MoveEast(object sender, RoutedEventArgs e)=>
+            _gameSession.MoveEast();
+        private void OnClick_MoveSouth(object sender, RoutedEventArgs e)=>
+            _gameSession.MoveSouth();
+        private void OnClick_AttackMonster(object sender, RoutedEventArgs e)=>
+            _gameSession.AttackCurrentMonster();
+        private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
+        {
+            GameMessages.Document.Blocks.Add(new Paragraph(new Run(e.Message)));
+            GameMessages.ScrollToEnd();
+        }
+        private void OnClick_UseCurrentConsumable(object sender, RoutedEventArgs e)
+        {
+            _gameSession.UseCurrentConsumable();
+        }
+        private void OnClick_DisplayTraderScreen(object sender=null, RoutedEventArgs e=null)
+        {
+            if (_gameSession.CurrentTrader != null)
+            {
+                TradeScreen tradeScreen = new TradeScreen();
+                tradeScreen.Owner = this;
+                tradeScreen.DataContext = _gameSession;
+                tradeScreen.ShowDialog();
+            }
+            //stops user interaction with main window
+        }
+        private void OnClick_DisplayMapScreen(object sender = null, RoutedEventArgs e = null)
+        {
+            Map map = new Map();
+            map.Owner = this;
+            map.DataContext = _gameSession;
+            map.ShowDialog();
+        }
+        private void OnClick_DisplayTutorialScreen(object sender = null, RoutedEventArgs e = null)
+        {
+            Tutorial tutorial = new Tutorial();
+            tutorial.Owner = this;
+            tutorial.DataContext = _gameSession;
+            tutorial.ShowDialog();
+        }
+        private void OnClick_Craft(object sender, RoutedEventArgs e)
+        {
+            Recipe recipe = ((FrameworkElement)sender).DataContext as Recipe;
+            _gameSession.CraftItemUsing(recipe);
+        }
+
+        private void InitializeUserDetails()
+        {
+            UserDetails userDetails = new UserDetails();
+            userDetails.DataContext = _gameSession;
+            userDetails.ShowDialog();
+        }
+        #endregion
+    }
+
+}

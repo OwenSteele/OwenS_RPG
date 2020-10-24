@@ -1,0 +1,105 @@
+﻿<Window x:Class="WPFUI.UserDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameEngine"
+        xmlns:viewModels="clr-namespace:Engine.ViewModels;assembly=Engine"
+        d:DataContext="{d:DesignInstance viewModels:GameSession}"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Times New Roman"
+        FontSize="12pt"
+        FontWeight="Bold"
+        mc:Ignorable="d"
+        Title="Launcher" Height="350" Width="300"
+        Closing="OnUserDetails_Closing">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </Window.Resources>
+
+    <Grid Background="DarkSlateGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" 
+                    Orientation="Vertical" 
+                    Margin="5" 
+                    Background="Transparent"
+HorizontalAlignment="Center">
+            
+            <TextBlock TextAlignment="Center" Foreground="Yellow" TextWrapping="WrapWithOverflow"
+                       Text="Welcome to my text-based RPG, SOSCSRPG!"/>
+            <TextBlock TextAlignment="Center" Foreground="LightGoldenrodYellow"  TextWrapping="WrapWithOverflow" 
+                       Text="Fill in your name and choose your character class, then select right-hand or left-hand controls." MinHeight="90"/>
+            
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="AUTO"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0"
+                MinWidth="100" 
+                     Name="NameTextBox"
+                     Background="SlateGray"
+                     BorderBrush="AliceBlue"
+                     Foreground="LightGoldenrodYellow"
+                     BorderThickness="2"
+                     MaxLines="1"
+                     MaxHeight="30"
+                     VerticalContentAlignment="Center"/>
+            
+            <Button Grid.Column="1"
+                Content="Check Name" 
+                    Margin="10"
+                    Click="OnClick_CheckNameValidity" 
+                    Height="30" HorizontalAlignment="Right"
+                    Background="Black"
+                    Foreground="LightGoldenrodYellow"
+                    BorderBrush="LightGoldenrodYellow"
+                    BorderThickness="2"/>
+        </Grid>
+
+        <TextBlock Grid.Row="2" 
+                   Name="NameCheckResultMessage" 
+                   Margin="2" 
+                   HorizontalAlignment="Center"
+                   Foreground="OrangeRed"/>
+
+        <StackPanel Grid.Row="3" Orientation="Vertical">
+        <CheckBox Margin="5" 
+                      x:Name="CheckBoxLefthanded" 
+                      Content="Left handed controls" 
+                      HorizontalAlignment="Center"
+                      Background="AliceBlue"
+                  Foreground="LightGoldenrodYellow"/>
+        <CheckBox Margin="5" 
+                      x:Name="CheckBoxOpenTutorial" 
+                      Content="Open tutorial on launch" 
+                      HorizontalAlignment="Center"
+                      Background="AliceBlue"
+                  Foreground="LightGoldenrodYellow"
+                  IsChecked="True"/>
+        </StackPanel>
+        
+        
+        <Button Grid.Row="4"
+               Name="ButtonStart" 
+            Content="Start" 
+                    Click="OnClick_UserDetailsComplete" 
+                    Height="30" Width="100" HorizontalAlignment="Center"
+                Visibility="Hidden"
+                Background="LightSeaGreen"
+                BorderBrush="DarkSeaGreen"
+                BorderThickness="3"/>
+    </Grid>
+</Window>

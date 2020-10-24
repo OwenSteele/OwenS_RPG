@@ -1,0 +1,449 @@
+﻿using Engine.Models;
+using Engine.Factories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Engine.EventArgs;
+using System.ComponentModel;
+using System.Windows;
+
+namespace Engine.ViewModels
+{
+    public class GameSession : BaseNotificationClass
+    {
+        public event EventHandler<GameMessageEventArgs> OnMessageRaised;
+
+        #region player, location, world, monster | properties
+        private Location _currentLocation;
+        private Monster _currentMonster;
+        private Trader _currentTrader;
+        private Quest _currentQuest;
+        private List<Location> _currentMap;
+        private Player _currentPlayer { get; set; }
+
+
+        public Player CurrentPlayer
+        {
+            get { return _currentPlayer; }
+            set
+            {
+                if (_currentPlayer != null)
+                {
+                    _currentPlayer.OnActionPerformed -= OnCurrentPlayerPerformedAction;
+                    _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
+                    _currentPlayer.OnLeveledUp -= OnCurrentPlayerLeveledUp;
+                    _currentPlayer.OnNewRecipeLearnt -= OnCurrentPlayerNewRecipeLearnt;
+                }
+                //with events -= means to unsubscribe from the event
+                _currentPlayer = value;
+                if (_currentPlayer != null)
+                {
+                    _currentPlayer.OnActionPerformed += OnCurrentPlayerPerformedAction;
+                    _currentPlayer.OnKilled += OnCurrentPlayerKilled;
+                    _currentPlayer.OnLeveledUp += OnCurrentPlayerLeveledUp;
+                    _currentPlayer.OnNewRecipeLearnt += OnCurrentPlayerNewRecipeLearnt;
+                }
+
+                OnPropertyChanged();
+            }
+        }
+        public Location CurrentLocation
+        {
+            get { return _currentLocation; }
+            set
+            {
+                _currentLocation = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasLocationToNorth));
+                OnPropertyChanged(nameof(HasLocationToWest));
+                OnPropertyChanged(nameof(HasLocationToEast));
+                OnPropertyChanged(nameof(HasLocationToSouth));
+                OnPropertyChanged(nameof(HasQuest));
+
+                CompleteQuestAtLocation();
+                GivePlayerQuestAtLocation();
+                GetMonsterAtLocation();
+                PlayerVisited();
+                GiveItemsToPickUpAtLocation();
+
+                CurrentTrader = CurrentLocation.TraderHere;
+            }
+        }
+        public World CurrentWorld { get; }
+        public Monster CurrentMonster
+        {
+            get { return _currentMonster; }
+            set
+            {
+                if (_currentMonster != null)
+                {
+                    _currentMonster.OnKilled -= OnCurrentMonsterKilled;
+                    _currentMonster.OnActionPerformed -= OnCurrentMonsterPerformedAction;
+                }
+                _currentMonster = value;
+                if (_currentMonster != null)
+                {
+                    _currentMonster.OnKilled += OnCurrentMonsterKilled;
+                    _currentMonster.OnActionPerformed += OnCurrentMonsterPerformedAction;
+                    RaiseMessage($"\nYou have encountered a {CurrentMonster.Name}");
+                }
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasMonster));
+            }
+        }
+        public Trader CurrentTrader
+        {
+            get { return _currentTrader; }
+            set
+            {
+                _currentTrader = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasTrader));
+            }
+        }
+        public Quest CurrentQuest
+        {
+            get { return _currentQuest; }
+            set
+            {
+                _currentQuest = value;
+                OnPropertyChanged();
+            }
+        }
+        public List<Location> CurrentMap
+        {
+            get { return _currentMap; }
+            set
+            {
+                _currentMap = value;
+                OnPropertyChanged();
+            }
+        }
+        public GameItem CurrentWeapon { get; set; }
+        #endregion
+
+        #region Has checks
+
+        #region location
+        public bool HasLocationToNorth =>
+            CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1) != null;
+        public bool HasLocationToWest =>
+            CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate) != null;
+        public bool HasLocationToEast =>
+            CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate) != null;
+        public bool HasLocationToSouth =>
+            CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1) != null;
+
+        public bool HasPlayerVisited =>
+            CurrentWorld.LocationAt(0, 0).PlayerHasVisitedHere;
+
+        #endregion
+
+        #region monster, trader
+
+        public bool HasMonster => CurrentMonster != null;
+        public bool HasTrader => CurrentTrader != null;
+        public bool HasQuest => CurrentQuest != null;
+        #endregion
+
+        #endregion
+
+        public GameSession()
+        {
+            CurrentPlayer = new Player
+            (
+                null,
+                "Fighter",
+                0,
+                100,
+                100,
+                10
+            );
+
+
+            if (!CurrentPlayer.Weapons.Any()) CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
+
+            CurrentPlayer.LearnRecipe(RecipeFactory.RecipeByID(1));
+
+            CurrentWorld = WorldFactory.CreateWorld();
+
+            CurrentLocation = CurrentWorld.LocationAt(0, 0);
+
+            CurrentMap = CurrentWorld.GetAllLocations();
+        }
+        public void GameInitialise() =>
+            RaiseMessage($"\n\n\nWelcome to SOSCSRPG!\n\nPlease enjoy!\n\nFor the tutorial, click the 'Help' button, in the top right corner");
+
+        #region movement
+        public void MoveNorth()
+        {
+            if (HasLocationToNorth)
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1);
+        }
+        public void MoveWest()
+        {
+            if (HasLocationToWest)
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate);
+        }
+        public void MoveEast()
+        {
+            if (HasLocationToEast)
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate);
+        }
+        public void MoveSouth()
+        {
+            if (HasLocationToSouth)
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1);
+        }
+        public void PlayerVisited()
+        {
+            CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate).PlayerHasVisitedHere = true;
+        }
+        #endregion
+
+        #region actions
+        public void AttackCurrentMonster()
+        {
+            if (CurrentMonster == null) return;
+
+            if (CurrentPlayer.CurrentWeapon == null)
+            {
+                RaiseMessage("To attack, you must have a weapon selected!");
+                return;
+            }
+
+            //attack the monster
+            CurrentPlayer.UseCurrentWeaponOn(CurrentMonster);
+
+            //check if the monster has been killed
+            if (CurrentMonster.IsDead)
+            {
+                //next monster to fight
+                GetMonsterAtLocation();
+            }
+            //if monster still alive, it attacks
+            else
+            {
+                CurrentMonster.UseCurrentWeaponOn(CurrentPlayer);
+            }
+        }
+
+        public void UseCurrentConsumable()
+        {
+            if (CurrentPlayer.CurrentConsumable != null)
+                CurrentPlayer.UseCurrentConsumable();
+        }
+
+        public void CraftItemUsing(Recipe recipe)
+        {
+            if (CurrentPlayer.HasAllTheseItems(recipe.Ingredients))
+            {
+                CurrentPlayer.RemoveItemsFromInventory(recipe.Ingredients);
+
+                foreach (ItemQuantity itemQuantity in recipe.OutputItems)
+                    for (int i = 0; i < itemQuantity.Quantity; i++)
+                    {
+                        GameItem outputItem = ItemFactory.CreateGameItem(itemQuantity.ItemID);
+                        CurrentPlayer.AddItemToInventory(outputItem);
+                        RaiseMessage($"\n You have crafted {StringGrammar.BeginsWithVowelAndIsPlural(outputItem.Name)} {outputItem.Name}");
+                    }
+            }
+            else
+            {
+                RaiseMessage($"\nYou don't have the required ingredients to craft {StringGrammar.BeginsWithVowelAndIsPlural(recipe.Name)} {recipe.Name}");
+                foreach (ItemQuantity ingredient in recipe.Ingredients)
+                    RaiseMessage($"{ingredient.Quantity}x {ItemFactory.ItemName(ingredient.ItemID)}.");
+            }
+        }
+        #endregion
+
+        #region 'At Location'
+        private void CompleteQuestAtLocation()
+        {
+            foreach (Quest quest in CurrentLocation.QuestsAvailableHere)
+            {
+                QuestStatus questToComplete = CurrentPlayer.Quests.FirstOrDefault
+                    (q => q.PlayerQuest.ID == quest.ID && !q.IsCompleted);
+
+                if (questToComplete != null)
+                {
+                    if (CurrentPlayer.HasAllTheseItems(quest.ItemsToComplete))
+                    {
+                        CurrentPlayer.RemoveItemsFromInventory(quest.ItemsToComplete);
+
+                        RaiseMessage($"\nCongratulations! You have complete the {quest.Name} quest. " +
+                            $"\nYou recieve {quest.RewardExperiencePoints} experience points" +
+                            $" and {quest.RewardGold} gold.");
+                        CurrentPlayer.AddExperience(quest.RewardExperiencePoints);
+                        CurrentPlayer.ReceiveGold(quest.RewardGold);
+
+                        string questRewardItemsMessage = null;
+                        foreach (ItemQuantity itemQuantity in quest.RewardItems)
+                        {
+                            GameItem rewardItem = ItemFactory.CreateGameItem(itemQuantity.ItemID);
+                            CurrentPlayer.AddItemToInventory(rewardItem);
+                            questRewardItemsMessage += (rewardItem.Name + ", ");
+                        }
+                        RaiseMessage($"You receive: {questRewardItemsMessage.Substring(0, questRewardItemsMessage.Length - 2)}.");
+
+                        questToComplete.IsCompleted = true;
+                    }
+                }
+            }
+        }
+        private void GivePlayerQuestAtLocation()
+        {
+            foreach (Quest quest in CurrentLocation.QuestsAvailableHere)
+            {
+                if (!CurrentPlayer.Quests.Any(q => q.PlayerQuest.ID == quest.ID))
+                {
+                    CurrentPlayer.Quests.Add(new QuestStatus(quest));
+
+                    RaiseMessage("");
+                    RaiseMessage($"You receive the '{quest.Name}' quest");
+                    RaiseMessage(quest.Description);
+
+                    RaiseMessage("Return with:");
+                    foreach (ItemQuantity itemQuantity in quest.ItemsToComplete)
+                    {
+                        RaiseMessage($"   {itemQuantity.Quantity} {ItemFactory.CreateGameItem(itemQuantity.ItemID).Name}");
+                    }
+
+                    RaiseMessage("And you will receive:");
+                    RaiseMessage($"   {quest.RewardExperiencePoints} experience points");
+                    RaiseMessage($"   {quest.RewardGold} gold");
+                    foreach (ItemQuantity itemQuantity in quest.RewardItems)
+                    {
+                        RaiseMessage($"   {itemQuantity.Quantity} {ItemFactory.CreateGameItem(itemQuantity.ItemID).Name}");
+                    }
+                }
+            }
+        }
+        private void GetMonsterAtLocation()
+        {
+            CurrentMonster = CurrentLocation.GetMonster();
+        }
+        private void GiveItemsToPickUpAtLocation()
+        {
+            if (CurrentLocation.ItemsToPickUpHere != null)
+            {
+                foreach (GameItem item in CurrentLocation.ItemsToPickUpHere)
+                {
+                    CurrentPlayer.AddItemToInventory(item);
+                    RaiseMessage($"At {CurrentLocation.Name}, you find some {item.Name} on the floor.");
+                }
+
+                CurrentLocation.RemoveAllItemsToPickUp();
+            }
+        }
+        #endregion
+
+        #region custom buttons
+        public string ButtonNorth { get { return Button.North; } }
+        public string ButtonWest { get { return Button.West; } }
+        public string ButtonEast { get { return Button.East; } }
+        public string ButtonSouth { get { return Button.South; } }
+        public string ButtonTrader { get { return Button.Trader; } }
+        public string ButtonMap { get { return Button.Map; } }
+        public string ButtonAttack { get { return Button.Attack; } }
+        public string ButtonUseConsumable { get { return Button.UseConsumable; } }
+        public string ButtonInventoryTabQuests { get { return Button.UIInventoryTabQuests; } }
+        public string ButtonInventoryTabBackpack { get { return Button.UIInventoryTabBackpack; } }
+        public string ButtonInventoryTabRecipes { get { return Button.UIInventoryTabRecipe; } }
+        public string ButtonInventoryTabRecipeCraft { get { return Button.InventoryTabRecipeCraft; } }
+
+        #endregion
+
+        #region custom UIBackgrounds
+
+        #region main window
+        public string BackgroundPlayerStatsCenter { get { return UIBackground.PlayerStatsCenter; } }
+        public string BackgroundPlayerStatsEdge { get { return UIBackground.PlayerStatsEdge; } }
+        public string BackgroundPlayerStatsGoldIcon { get { return UIBackground.PlayerStatsGoldIcon; } }
+        public string BackgroundGameMessagesCenter { get { return UIBackground.GameMessagesCenter; } }
+        public string BackgroundLocationBackgroundCenter { get { return UIBackground.LocationBackgroundCenter; } }
+        public string BackgroundMonsterBackgroundCenter { get { return UIBackground.Dynamic.MonsterBackgroundCenterDefault; } }
+        public string BackgroundMonsterBackgroundNameBanner { get { return UIBackground.MonsterBackgroundNameBanner; } }
+        public string BackgroundActionPanelBackgroundCenter { get { return UIBackground.ActionPanelBackgroundCenter; } }
+        #endregion
+
+        #region map window
+        public string MapBackgroundMainOverallBackground { get { return UIBackground.Map.MainOverallBackground; } }
+        #endregion
+
+        #region trader window
+        public string TraderBackgroundMainOverallBackground { get { return UIBackground.Trader.MainOverallBackground; } }
+        #endregion
+
+        #endregion
+
+        #region Events
+        private void RaiseMessage(string message) => OnMessageRaised?.Invoke(this, new GameMessageEventArgs(message));
+
+        private void OnCurrentPlayerKilled(object sender, System.EventArgs eventArgs)
+        {
+            //lose gold on death
+            int gold;
+            if (CurrentPlayer.Gold < 50) gold = 10;
+            else gold = (int)(CurrentPlayer.Gold * 0.25);
+            CurrentPlayer.SpendGold(gold);
+
+            if (CurrentMonster != null) RaiseMessage($"\n*****\nThe {CurrentMonster.Name} killed you\n You have lost {gold} gold..\n*****\n");
+            else RaiseMessage($"\nYou died.");
+
+            CurrentLocation = CurrentWorld.LocationAt(0, -1);
+            CurrentPlayer.CompletelyHeal();
+        }
+
+        private void OnCurrentMonsterKilled(object sender, System.EventArgs eventArgs)
+        {
+            RaiseMessage($"\nYou defeated the {CurrentMonster.Name}!");
+
+            RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
+            CurrentPlayer.AddExperience(CurrentMonster.RewardExperiencePoints);
+
+            RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
+            CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
+
+            foreach (GameItem gameItem in CurrentMonster.Inventory)
+            {
+                RaiseMessage($"You receive one {gameItem.Name}.");
+                CurrentPlayer.AddItemToInventory(gameItem);
+            }
+        }
+
+        private void OnCurrentPlayerLeveledUp(object sender, System.EventArgs eventArgs) =>
+            RaiseMessage($"You are now level {CurrentPlayer.Level}!");
+
+        private void OnCurrentPlayerPerformedAction(object sender, string result) =>
+            RaiseMessage(result);
+
+        private void OnCurrentMonsterPerformedAction(object sender, string result) =>
+            RaiseMessage(result);
+        private void OnCurrentPlayerNewRecipeLearnt(object sender, string result) =>
+            RaiseMessage(result);
+
+        #endregion
+
+        #region UserDetails
+
+        public bool HasValidUserDetails =>
+            UserDetailsMessage.NameCheckMessage != null && UserDetailsMessage.NameCheckMessage.Contains("Valid");
+        
+        public string CheckNameValidity(string input)
+        {
+            UserDetailsMessage.NameCheckMessage = input;
+            return UserDetailsMessage.NameCheckMessage;
+        }
+        public void UserDetailsOpenTutorialWindowOnLaunch(bool isEnabled) =>
+            UserDetailsMessage.OpenTutorialWindowOnLaunch = isEnabled;
+        public void UserDetailsLeftHandedControls(bool isEnabled) =>
+            UserDetailsMessage.LeftHandedControls = isEnabled;
+
+        public bool GetLeftHandedControlsState => UserDetailsMessage.LeftHandedControls;
+        public bool GetOpenTutorialWindowOnLaunchState => UserDetailsMessage.OpenTutorialWindowOnLaunch;
+
+        #endregion
+    }
+}

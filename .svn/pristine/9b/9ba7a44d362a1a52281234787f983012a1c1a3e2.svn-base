@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Engine.Models
+{
+    public static class Button
+    {
+        public static string North { get; } = Paths.Images.Buttons("North.png");
+        public static string West { get; } = Paths.Images.Buttons("West.png");
+        public static string East { get; } = Paths.Images.Buttons("East.png");
+        public static string South { get; } = Paths.Images.Buttons("West - Copy.png"); //for some reason South is not accepted as a name...
+    }
+}

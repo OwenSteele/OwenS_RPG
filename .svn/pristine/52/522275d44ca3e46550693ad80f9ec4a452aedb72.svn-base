@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Build.Tasks.Git.1.1.0-beta-20204-02\build\Microsoft.Build.Tasks.Git.props" Condition="Exists('..\packages\Microsoft.Build.Tasks.Git.1.1.0-beta-20204-02\build\Microsoft.Build.Tasks.Git.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{91748F42-021C-4724-AD57-A422E002BC9A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Engine</RootNamespace>
+    <AssemblyName>Engine</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\AttackWithWeapon.cs" />
+    <Compile Include="Actions\BaseAction.cs" />
+    <Compile Include="Actions\Heal.cs" />
+    <Compile Include="Actions\IAction.cs" />
+    <Compile Include="BaseNotificationClass.cs" />
+    <Compile Include="EventArgs\GameMessageEventArgs.cs" />
+    <Compile Include="Factories\ItemFactory.cs" />
+    <Compile Include="Factories\MonsterFactory.cs" />
+    <Compile Include="Factories\QuestFactory.cs" />
+    <Compile Include="Factories\RecipeFactory.cs" />
+    <Compile Include="Factories\TraderFactory.cs" />
+    <Compile Include="Factories\WorldFactory.cs" />
+    <Compile Include="Models\Button.cs" />
+    <Compile Include="Models\GameItem.cs" />
+    <Compile Include="Models\GroupedInventoryItem.cs" />
+    <Compile Include="Models\ItemQuantity.cs" />
+    <Compile Include="Models\LivingEntity.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\Monster.cs" />
+    <Compile Include="Models\MonsterEncounter.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Quest.cs" />
+    <Compile Include="Models\QuestStatus.cs" />
+    <Compile Include="Models\Recipe.cs" />
+    <Compile Include="Models\StringGrammar.cs" />
+    <Compile Include="Models\Trader.cs" />
+    <Compile Include="Models\UIBackground.cs" />
+    <Compile Include="Models\World.cs" />
+    <Compile Include="Paths.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomNumberGenerator.cs" />
+    <Compile Include="ViewModels\GameSession.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Locations\FarmFields.png" />
+    <Resource Include="Images\Locations\Farmhouse.png" />
+    <Resource Include="Images\Locations\HerbalistsGarden.png" />
+    <Resource Include="Images\Locations\HerbalistsHut.png" />
+    <Resource Include="Images\Locations\Home.png" />
+    <Resource Include="Images\Locations\SpiderForest.png" />
+    <Resource Include="Images\Locations\TownGate.png" />
+    <Resource Include="Images\Locations\TownSquare.png" />
+    <Resource Include="Images\Locations\Trader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Monsters\GiantSpider.png" />
+    <Resource Include="Images\Monsters\Rat.png" />
+    <Resource Include="Images\Monsters\Snake.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\North.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\East.png" />
+    <Resource Include="Images\Buttons\West.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\West - Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\Trader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\Map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\PlayerStatsCenterLeather.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\PlayerStatsCenterLeather2.png" />
+    <Resource Include="Images\UIBackground\PlayerStatsEdge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\GameMessagesCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\MapScreen_Compass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\MapScreen_BackgroundBlank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\LocationBackgroundCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\PlayerStatsGoldIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\MonsterBackgroundCenterT1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\MonsterBackgroundNameBanner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\ActionBackgroundCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\AttackRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\ConsumableT1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\TraderScreen_MainOverallBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UIBackground\TraderScreen_MainOverallBackgroundWood.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Build.Tasks.Git.1.1.0-beta-20204-02\build\Microsoft.Build.Tasks.Git.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Build.Tasks.Git.1.1.0-beta-20204-02\build\Microsoft.Build.Tasks.Git.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Build.Tasks.Git.1.1.0-beta-20204-02\build\Microsoft.Build.Tasks.Git.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Build.Tasks.Git.1.1.0-beta-20204-02\build\Microsoft.Build.Tasks.Git.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Build.Tasks.Git.1.1.0-beta-20204-02\build\Microsoft.Build.Tasks.Git.targets" Condition="Exists('..\packages\Microsoft.Build.Tasks.Git.1.1.0-beta-20204-02\build\Microsoft.Build.Tasks.Git.targets')" />
+</Project>

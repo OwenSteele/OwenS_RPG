@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Engine.Models
+{
+    public class Map
+    {
+        public string Name { get; set; }
+        public int XCoordinate { get; set; }
+        public int YCoordinate { get; set; }
+        public bool PlayerHere { get; set; }
+        public bool MonsterHere { get; set; }
+        public bool QuestHere { get; set; }
+        public bool TraderHere { get; set; }
+    }
+}

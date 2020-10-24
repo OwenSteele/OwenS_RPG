@@ -1,0 +1,69 @@
+﻿using Engine.Factories;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Engine.Models
+{
+    public class Location
+    {
+        #region properties and constructor
+        public int XCoordinate { get; }
+        public int YCoordinate { get; }
+        public string Name { get; }
+        public string Description { get; }
+        public string ImageName { get; }
+        public bool PlayerHasVisitedHere { get; set; }
+        public List<Quest> QuestsAvailableHere { get; } = new List<Quest>();
+        public Trader TraderHere { get; set; }
+        public List<MonsterEncounter> MonstersHere { get; } = new List<MonsterEncounter>();
+        public List<GameItem> ItemsToPickUpHere { get; } = new List<GameItem>();
+
+        public Location(int xCoordinate, int yCoordinate, string name, string description, string imageName, bool playerHasVisitedHere)
+        {
+            XCoordinate = xCoordinate;
+            YCoordinate = yCoordinate;
+            Name = name;
+            Description = description;
+            ImageName = imageName;
+            PlayerHasVisitedHere = playerHasVisitedHere;
+        }
+        #endregion
+
+        #region Monster Encounter
+        public void AddMonster(int monsterID, int chanceOfEncountering)
+        {
+            //if monster has already been assinged at this location, overwrite chance of encounter with new value
+            if (MonstersHere.Exists(m => m.MonsterID == monsterID))
+                MonstersHere.First(m => m.MonsterID == monsterID).ChanceOfEncountering = chanceOfEncountering;
+            else
+                MonstersHere.Add(new MonsterEncounter(monsterID, chanceOfEncountering));
+        }
+
+        public Monster GetMonster()
+        {
+            if (!MonstersHere.Any()) return null;
+            //% of all monsters at this location
+            int totalChances = MonstersHere.Sum(m => m.ChanceOfEncountering);
+            //select a random number between 1 and total number of monsters
+            int randomNumber = RandomNumberGenerator.NumberBetween(1, totalChances);
+            //loop through monsters and return a monster based on the random number
+            int runningTotal = 0;
+            foreach (MonsterEncounter monsterEncounter in MonstersHere)
+            {
+                runningTotal += monsterEncounter.ChanceOfEncountering;
+                if (randomNumber <= runningTotal)
+                    return MonsterFactory.GetMonster(monsterEncounter.MonsterID);
+            }
+            //if no monster found - return the last monster in the list
+            return MonsterFactory.GetMonster(MonstersHere.Last().MonsterID);
+        }
+        #endregion 
+        public void AddItemsToPickUp(int itemID, int itemQuantity)
+        {
+            for (int i = 0; i < itemQuantity;i++)
+                ItemsToPickUpHere.Add(ItemFactory.CreateGameItem(itemID));
+        }
+        public void RemoveAllItemsToPickUp() =>
+                ItemsToPickUpHere.RemoveRange(0, ItemsToPickUpHere.Count);
+    }
+}

@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Engine.ViewModels;
+using GameEngine;
+
+namespace WPFUI
+{
+    /// <summary>
+    /// Interaction logic for UserDetails.xaml
+    /// </summary>
+    public partial class UserDetails : Window
+    {
+        private static string PlayerName { get; set; }
+
+        private static bool CompletedUserDetails = false;
+        public GameSession Session => DataContext as GameSession;
+        public UserDetails()
+        {
+            InitializeComponent();
+        }
+        public void OnClick_CheckNameValidity(object sender, RoutedEventArgs e)
+        {
+            NameCheckResultMessage.Text = Session.CheckNameValidity(NameTextBox.Text);
+            if (NameCheckResultMessage.Text.Contains("Valid"))
+            {
+                PlayerName = NameTextBox.Text;
+                ButtonStart.Visibility = Visibility.Visible;
+            }
+            else ButtonStart.Visibility = Visibility.Hidden;
+        }
+        public void OnClick_UserDetailsComplete(object sender, RoutedEventArgs e)
+        {
+            if (PlayerName != null)
+            {
+                CompletedUserDetails = true;
+                this.Session.CurrentPlayer.Name = PlayerName;
+            }
+
+            Session.UserDetailsLeftHandedControls(CheckBoxLefthanded.IsEnabled);
+            Session.UserDetailsOpenTutorialWindowOnLaunch(CheckBoxOpenTutorial.IsEnabled);
+            Close();
+        }
+        void OnUserDetails_Closing(object sender, CancelEventArgs e)
+        {
+            if (!CompletedUserDetails)
+            {
+                string[] message = new string[2]; //caption, message
+                if (PlayerName == null)
+                {
+                    message[0] = "You can't be nameless!";
+                    message[1] = "You have not set a player name!\nDo you want to exit instead?";
+                }
+                else
+                {
+                    message[0] = "Exit?";
+                    message[1] = "This will exit the game completely, are you sure?";
+                }
+
+                MessageBoxResult result = MessageBox.Show
+                        (
+                        message[1],
+                        message[0],
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning
+                        );
+                if (result == MessageBoxResult.No)
+                    e.Cancel = true;
+                else Application.Current.MainWindow.Close();
+            }
+        }
+    }
+}

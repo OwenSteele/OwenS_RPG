@@ -1,0 +1,39 @@
+﻿using Engine.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Engine.Factories
+{
+    public static class ItemFactory
+    {
+        private static List<GameItem> _standardgameItems= new List<GameItem>();
+
+        static ItemFactory()
+        {
+            _standardgameItems.Add(new Weapon(1001, "Pointy Stick", 1, 1, 2));
+            _standardgameItems.Add(new Weapon(1002, "Rusty Sword", 5, 2, 3));
+
+            _standardgameItems.Add(new GameItem(9001, "Snake Fang", 1));
+            _standardgameItems.Add(new GameItem(9002, "Snakeskin", 2));
+            _standardgameItems.Add(new GameItem(9003, "Rat tail", 1));
+            _standardgameItems.Add(new GameItem(9004, "Rat fur", 2));
+            _standardgameItems.Add(new GameItem(9005, "Spider fang", 1));
+            _standardgameItems.Add(new GameItem(9006, "Spider silk", 2));
+        }
+        public static GameItem CreateGameItem(int itemTypeID)
+        {
+            GameItem standardItem = _standardgameItems.FirstOrDefault(item => item.ItemTypeID == itemTypeID);
+            //return (standardItem.Equals(null) ? null : (standardItem as Weapon).Clone());
+            if(standardItem !=null)
+            {
+                if (standardItem is Weapon) return (standardItem as Weapon).Clone();
+                return standardItem.Clone();
+            }
+            return null;
+        }
+    }
+}

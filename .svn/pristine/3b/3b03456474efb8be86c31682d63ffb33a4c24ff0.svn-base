@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Engine.Models
+{
+    public class PlayerInteraction
+    {
+        private List<PlayerInteraction> _attacks = new List<PlayerInteraction>();
+        public List<PlayerInteraction> Attacks
+        {
+            get { return _attacks; }
+        }
+        public int InteractionType { get; set; } //0=attack
+        public bool InteractionTypeCondition { get; set; } //attack: hit = true, miss = false
+        public string[] InteractionTypeMessages { get; set; }
+        internal void AddAttackInteraction(int interactionType, bool interactionTypeCondition, string[] interactionTypeMessages)
+        {
+            PlayerInteraction att = new PlayerInteraction();
+
+            att.InteractionType = interactionType;
+            att.InteractionTypeCondition = interactionTypeCondition;
+            att.InteractionTypeMessages = interactionTypeMessages;
+
+            _attacks.Add(att);
+        }
+    }
+}

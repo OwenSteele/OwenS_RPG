@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Engine.Actions.AttackWithWeapon" Collapsed="true">
+    <Position X="1" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAgAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\AttackWithWeapon.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Engine.Actions.BaseAction" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Actions\BaseAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Actions.Heal" Collapsed="true">
+    <Position X="3.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\Heal.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Engine.BaseNotificationClass" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseNotificationClass.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Engine.Paths" Collapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Paths.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.RandomNumberGenerator" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RandomNumberGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.EventArgs.GameMessageEventArgs" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>EventArgs\GameMessageEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Factories.ImageFactory" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factories\ImageFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Factories.ItemFactory" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAFAAQAAACAAAAAAAAAQAAAAgQAAAABAAAAQAAAAAA=</HashCode>
+      <FileName>Factories\ItemFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Factories.KeyBindingFactory" Collapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factories\KeyBindingFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Factories.MonsterFactory" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Factories\MonsterFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Factories.QuestFactory" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Factories\QuestFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Factories.RecipeFactory" Collapsed="true">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Factories\RecipeFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Factories.TraderFactory" Collapsed="true">
+    <Position X="20.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAgAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factories\TraderFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Factories.WorldFactory" Collapsed="true">
+    <Position X="18.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factories\WorldFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.GameItem" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAQIAAAAAgQAAACQBAAAAAAAAAAAAAAAACBQ=</HashCode>
+      <FileName>Models\GameItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.GroupedInventoryItem" Collapsed="true">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAEABAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\GroupedInventoryItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.ItemQuantity" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\ItemQuantity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.KeyBindings" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAIwAAAAAAAAAQAAAAAAAAAAgQAAAAAAAA=</HashCode>
+      <FileName>Models\KeyBindings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.LivingEntity" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACEMAUAgAQIAAKAABMAEQQABCAAIBABKAiQgiAAEBE=</HashCode>
+      <FileName>Models\LivingEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.Location" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAIAAAgAAgAAAIgAgQgAAAEBAAAAAAAAAAkAAA=</HashCode>
+      <FileName>Models\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.Monster" Collapsed="true">
+    <Position X="3.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Monster.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.MonsterEncounter" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Models\MonsterEncounter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.Player" Collapsed="true">
+    <Position X="1.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAABEAgAAAEIAAAIEQEAAAAAAAgAAAAAAAAQBA=</HashCode>
+      <FileName>Models\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.Quest" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAgkAAIAAAAAAQAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Models\Quest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.QuestStatus" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAABAAAAACAAAAAAA=</HashCode>
+      <FileName>Models\QuestStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.Recipe" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAgAAAAAAAACQAAAAAAAAAAAEAAAAAABA=</HashCode>
+      <FileName>Models\Recipe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.StringGrammar" Collapsed="true">
+    <Position X="18.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Models\StringGrammar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.Trader" Collapsed="true">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Trader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.UIDynamicBackground" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\UIDynamicBackground.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.UserDetailsMessage" Collapsed="true">
+    <Position X="15.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAEAAAAAAAAAAgAEAgAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\UserDetailsMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Models.World" Collapsed="true">
+    <Position X="17" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\World.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.Properties.Resources" Collapsed="true">
+    <Position X="17" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine.ViewModels.GameSession" Collapsed="true">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kECEAIwIwBAAEwRgEjVcgYgBMRk1EJuIgJmQiEjCICA=</HashCode>
+      <FileName>ViewModels\GameSession.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Engine.Actions.IAction" Collapsed="true">
+    <Position X="15.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\IAction.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

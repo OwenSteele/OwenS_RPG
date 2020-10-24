@@ -1,0 +1,90 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Engine.ViewModels;
+using Engine.Models;
+
+namespace WPFUI
+{
+    /// <summary>
+    /// Interaction logic for Map.xaml
+    /// </summary>
+    public partial class Map : Window
+    {
+        public GameSession Session => DataContext as GameSession;
+        public Map()
+        {
+            InitializeComponent();
+        }
+    public void OnLoad_MapGrid(object sender, RoutedEventArgs e)
+        {
+            for (int row = 2; row>= -1; row--)
+                for (int column = -2; column<=2; column++)
+                {
+                    StackPanel mapLocation = new StackPanel();
+                    TextBlock textBlockTop = new TextBlock();
+                    Image mapLocationImage = new Image();
+                    BitmapImage mapLocationBitmapImage = new BitmapImage();
+                    TextBlock textBlockBottom = new TextBlock();
+                    Location currentMapLocation = Session.CurrentWorld.LocationAt(column, row);
+
+                    mapLocation.Orientation = Orientation.Vertical;
+                    mapLocation.HorizontalAlignment = HorizontalAlignment.Center;
+                    mapLocation.Height = 100;
+                    mapLocation.Width = 100;
+
+                    if (currentMapLocation != null && currentMapLocation.PlayerHasVisitedHere)
+                    {
+                        textBlockTop.Text = currentMapLocation.Name;
+                        textBlockTop.HorizontalAlignment = HorizontalAlignment.Center;
+                        textBlockTop.TextWrapping = TextWrapping.WrapWithOverflow;
+
+                        mapLocationBitmapImage.BeginInit();
+                        mapLocationBitmapImage.UriSource = new Uri(@currentMapLocation.ImageName, UriKind.Relative);
+                        mapLocationBitmapImage.EndInit();
+
+                        mapLocationImage.Source = mapLocationBitmapImage;
+                        mapLocationImage.MaxHeight = 60;
+                        mapLocationImage.MaxWidth = 60;
+
+                        textBlockBottom.Text = "";
+                        if (Session.CurrentLocation == currentMapLocation)
+                        {
+                            textBlockBottom.HorizontalAlignment = HorizontalAlignment.Center;
+                            textBlockBottom.FontWeight = FontWeights.Bold;
+                            textBlockBottom.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
+                            textBlockBottom.Text = "You are here";
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                    else
+                    {
+                        mapLocation.Background = new System.Windows.Media.SolidColorBrush(Colors.Black);
+                    }
+
+                    mapLocation.Children.Add(textBlockTop);
+                    mapLocation.Children.Add(mapLocationImage);
+                    mapLocation.Children.Add(textBlockBottom);
+
+                    MapGrid.Children.Add(mapLocation);
+                    Grid.SetRow(mapLocation, 2-row);
+                    Grid.SetColumn(mapLocation, column+2);
+                }
+        }
+    public void OnClick_Close(object sender, RoutedEventArgs e) => Close();
+    }
+}

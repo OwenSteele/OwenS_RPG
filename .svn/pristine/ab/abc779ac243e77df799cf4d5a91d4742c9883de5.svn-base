@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Engine;
+
+namespace Engine.Models
+{
+    public class World
+    {
+        private List<Location> _locations = new List<Location>();
+
+        internal void AddLocation(int xCoordinate, int yCoordinate, string name, string description, string imageName, bool playerHasvisitedHere = false)
+        {
+            if (xCoordinate == 0 && yCoordinate == 0) playerHasvisitedHere = true;
+
+            _locations.Add(new Location(xCoordinate,yCoordinate,name,description,Paths.Images.Locations(imageName),playerHasvisitedHere));
+        }
+        public Location LocationAt(int xCoordinate, int yCoordinate)
+        {
+            try { return _locations.First(l => (l.XCoordinate == xCoordinate && l.YCoordinate == yCoordinate)); } catch { return null; };
+        }
+        public List<Location> GetAllLocations()
+        {
+            List<Location> visitedLocations = new List<Location>();
+
+            foreach (Location location in _locations) {
+                if (location.PlayerHasVisitedHere) visitedLocations.Add(location); }
+
+            return visitedLocations;
+        }
+    }
+}

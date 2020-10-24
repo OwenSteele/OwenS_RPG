@@ -1,0 +1,82 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Engine.Models
+{
+    /// <summary>
+    /// To have the MainWindow.xaml auto update when the property is changed, need INotifyPropertyChanged. 
+    /// INotifyPropertyChanged needs an event handler, PropertyChangedEventHandler, that invokes the change to the property from an event.
+    /// But this means auto-properties cannot be used, need priavte variables and defined getters and setters
+    /// 
+    /// 
+    /// </summary>
+    public class Player : LivingEntity
+    {
+        #region properties and constructors
+        private string _characterClass;
+        private int _experiencePoints;
+        private int _level;
+
+        public string CharacterClass
+        {
+            get { return _characterClass; }
+            set
+            {
+                _characterClass = value;
+                OnPropertyChanged(nameof(CharacterClass));
+            }
+        }
+        public int ExperiencePoints 
+        { 
+            get { return _experiencePoints; }
+            set 
+            { 
+                _experiencePoints = value;
+                OnPropertyChanged(nameof(ExperiencePoints)); 
+            } 
+        }
+        public int Level
+        {
+            get { return _level; }
+            set
+            {
+                _level = value;
+                OnPropertyChanged(nameof(Level));
+            }
+        }
+        #endregion 
+
+        
+        //public List<PlayerInteraction> Interactions { get; set; }
+        public ObservableCollection<QuestStatus> Quests { get; set; }
+        public Player()
+        {
+            Quests = new ObservableCollection<QuestStatus>();
+            //Interactions = new List<PlayerInteraction>();
+        }
+        #region inventory changes
+        public bool HasAllTheseItems(List<ItemQuantity> items)
+        {
+            foreach (ItemQuantity item in items)
+            {
+                if (Inventory.Count(i => i.ItemTypeID == item.ItemID) < item.Quantity) 
+                    return false;
+            }
+            return true;
+        }
+        #endregion
+        //public string MissedAttack()
+        //{
+        //    string[] missedAttacks = (from i in Interactions
+        //                              where (i.InteractionType == 0)
+        //                              where (i.InteractionTypeCondition == false)
+        //                              select (string[])i.InteractionTypeMessages).First();
+        //    return missedAttacks[RandomNumberGenerator.NumberBetween(0, missedAttacks.Length - 1)];
+        //}
+    }
+}

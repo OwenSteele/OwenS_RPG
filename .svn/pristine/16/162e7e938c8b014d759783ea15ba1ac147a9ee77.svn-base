@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Engine.Models
+{
+    public static class UIBackground
+    {
+        //main window only
+        public static string PlayerStatsCenter { get; } = Paths.Images.UIBackgrounds("PlayerStatsCenterLeather2.png"); 
+        public static string PlayerStatsEdge{ get; } = Paths.Images.UIBackgrounds("PlayerStatsEdge.png");
+        public static string PlayerStatsGoldIcon { get; } = Paths.Images.UIBackgrounds("PlayerStatsGoldIcon.png");
+        public static string GameMessagesCenter { get; } = Paths.Images.UIBackgrounds("GameMessagesCenter.png");
+        public static string LocationBackgroundCenter { get; } = Paths.Images.UIBackgrounds("LocationBackgroundCenter.png");
+        public static string MonsterBackgroundCenter { get; } = Paths.Images.UIBackgrounds("MonsterBackgroundCenterT1.png");
+        public static string MonsterBackgroundNameBanner { get; } = Paths.Images.UIBackgrounds("MonsterBackgroundNameBanner.png");
+        public static string ActionPanelBackgroundCenter { get; } = Paths.Images.UIBackgrounds("ActionBackgroundCenter.png");
+
+
+
+        public static class Map
+        {
+            //map window only
+            public static string MainOverallBackground { get; } = Paths.Images.UIBackgrounds("MapScreen_BackgroundBlank.png");
+            public static string MapScreen_Compass { get; } = Paths.Images.UIBackgrounds("MapScreen_Compass.png");
+        }
+        public static class Trader
+        {
+            //trader window only
+            public static string MainOverallBackground { get; } = Paths.Images.UIBackgrounds("TraderScreen_MainOverallBackgroundWood.png");
+        }
+    }
+}

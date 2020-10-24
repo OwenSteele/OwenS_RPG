@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Engine.Models
+{
+    public static class StringGrammar
+    {
+        private static string vowels = "aeiou";
+        public static string BeginsWithVowelAndIsPlural(string stringToCheck)
+        { 
+            if (stringToCheck.Substring(stringToCheck.Length - 1, 1) == "s")
+                return "some";
+
+            return vowels.ToCharArray().Any(
+                v => v.ToString() == stringToCheck.Substring(0, 1).ToLower()) ? "an" : "a";
+        }
+    }
+}

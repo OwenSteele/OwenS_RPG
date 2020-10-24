@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Engine;
+
+namespace Engine.Models
+{
+    public class World
+    {
+        private List<Location> _locations = new List<Location>();
+
+        internal void AddLocation(int xCoordinate, int yCoordinate, string name, string description, string imageName)
+        {
+            Location loc = new Location();
+
+            loc.XCoordinate = xCoordinate;
+            loc.YCoordinate = yCoordinate;
+            loc.Name = name;
+            loc.Description = description;
+            loc.ImageName = Paths.Images.Locations(imageName);
+
+            _locations.Add(loc);
+
+            Map mapLoc = new Map();
+
+            mapLoc.XCoordinate = xCoordinate;
+            mapLoc.YCoordinate = yCoordinate;
+            loc.Name = name;
+
+
+        }
+        public Location LocationAt(int xCoordinate, int yCoordinate)
+        {
+            try { return _locations.First(l => (l.XCoordinate == xCoordinate && l.YCoordinate == yCoordinate)); } catch { return null; };
+        }
+    }
+}

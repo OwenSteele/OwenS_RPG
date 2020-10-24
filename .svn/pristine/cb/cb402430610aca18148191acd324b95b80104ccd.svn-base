@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections;
+
+namespace Engine
+{
+    public class Paths
+    {
+        public static string MainPath { get { return "/Engine;component"; } }
+        public static class Images
+        {
+            private static readonly string imagesPath = MainPath + "/Images";
+            private static readonly string locations = "/Locations";
+            private static readonly string monsters = "/Monsters";
+            private static readonly string buttons = "/Buttons";
+            private static readonly string uiBackgrounds = "/UIBackground";
+
+            public static string Locations(string file)
+            {
+                return imagesPath + locations + "/" + file;
+            }
+            public static string Monsters(string file)
+            {
+                return imagesPath + monsters + "/" + file;
+            }
+            public static string Buttons(string file)
+            {
+                return imagesPath + buttons + "/" + file;
+            }
+            public static string UIBackgrounds(string file)
+            {
+                return imagesPath + uiBackgrounds + "/" + file;
+            }
+        }
+    }
+}

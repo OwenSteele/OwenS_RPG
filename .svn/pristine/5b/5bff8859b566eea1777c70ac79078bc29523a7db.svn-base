@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Engine
+{
+    public class Paths
+    {
+            public static string MainPath{ get { return "/Engine;component"; } }
+        public static class Images
+        {
+            private static readonly string imagesPath = "/Images";
+            private static readonly string locations = "/Locations";
+
+            public static string Locations(string file)
+            {
+                return MainPath + imagesPath + locations +"/"+ file; 
+            }
+        }
+    }
+}

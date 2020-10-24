@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Engine.Models
+{
+    /// <summary>
+    /// To have the MainWindow.xaml auto update when the property is changed, need INotifyPropertyChanged. 
+    /// INotifyPropertyChanged needs an event handler, PropertyChangedEventHandler, that invokes the change to the property from an event.
+    /// But this means auto-properties cannot be used, need priavte variables and defined getters and setters
+    /// 
+    /// 
+    /// </summary>
+    public class Player : LivingEntity
+    {
+        #region properties and constructors
+        private string _characterClass;
+        private int _experiencePoints;
+        private int _nextLevelExperiencePoints = 100;
+
+        public string CharacterClass
+        {
+            get { return _characterClass; }
+            set
+            {
+                _characterClass = value;
+                OnPropertyChanged();
+            }
+        }
+        public int ExperiencePoints 
+        { 
+            get { return _experiencePoints; }
+            private set 
+            { 
+                _experiencePoints = value;
+                OnPropertyChanged();
+
+                SetLevelAndMaximumHitPoints();
+            } 
+        }
+        public int NextLevelExperiencePoints
+        {
+            get { return _nextLevelExperiencePoints; }
+            private set
+            {
+                _nextLevelExperiencePoints = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion 
+        
+        //public List<PlayerInteraction> Interactions { get; set; }
+        public ObservableCollection<QuestStatus> Quests { get; }
+
+        public event EventHandler OnLeveledUp;
+
+        public Player(string name, string characterClass, int experiencePoints,
+                      int maximumHitPoints, int currentHitPoints, int gold) :
+            base(name, maximumHitPoints, currentHitPoints, gold)
+        {
+            CharacterClass = characterClass;
+            ExperiencePoints = experiencePoints;
+
+            Quests = new ObservableCollection<QuestStatus>();
+
+            //Interactions = new List<PlayerInteraction>();
+        }
+        #region inventory changes
+        public bool HasAllTheseItems(List<ItemQuantity> items)
+        {
+            foreach (ItemQuantity item in items)
+            {
+                if (Inventory.Count(i => i.ItemTypeID == item.ItemID) < item.Quantity) 
+                    return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region Level Changes
+        public void AddExperience(int experiencePoints) => ExperiencePoints += experiencePoints;
+
+        private void SetLevelAndMaximumHitPoints()
+        {
+            int originalLevel = Level;
+            Level = ExperiencePointsPerLevelCalculator();
+            if (Level!= originalLevel)
+            {
+                NextLevelExperiencePoints = ExperiencePointsPerLevelCalculator(ExperiencePoints);
+                MaximumHitPoints = Level * 100;
+                OnLeveledUp?.Invoke(this, System.EventArgs.Empty);
+            }
+        }
+
+        private int ExperiencePointsPerLevelCalculator(int? experiencePoints = null)
+        {
+            int experiencePerLevel = 100;
+            if (experiencePoints != null) return (experiencePoints.Value + experiencePerLevel);
+            return (ExperiencePoints / experiencePerLevel) + 1;
+        }
+
+        #endregion
+        //public string MissedAttack()
+        //{
+        //    string[] missedAttacks = (from i in Interactions
+        //                              where (i.InteractionType == 0)
+        //                              where (i.InteractionTypeCondition == false)
+        //                              select (string[])i.InteractionTypeMessages).First();
+        //    return missedAttacks[RandomNumberGenerator.NumberBetween(0, missedAttacks.Length - 1)];
+        //}
+    }
+}
