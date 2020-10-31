@@ -1,7 +1,0 @@
-C:\Users\owenf\source\repos\SOSCSRPG\Engine\bin\Release\Engine.dll
-C:\Users\owenf\source\repos\SOSCSRPG\Engine\bin\Release\Engine.pdb
-C:\Users\owenf\source\repos\SOSCSRPG\Engine\obj\Release\Engine.csprojAssemblyReference.cache
-C:\Users\owenf\source\repos\SOSCSRPG\Engine\obj\Release\Engine.g.resources
-C:\Users\owenf\source\repos\SOSCSRPG\Engine\obj\Release\Engine.csproj.CoreCompileInputs.cache
-C:\Users\owenf\source\repos\SOSCSRPG\Engine\obj\Release\Engine.dll
-C:\Users\owenf\source\repos\SOSCSRPG\Engine\obj\Release\Engine.pdb
