@@ -12,5 +12,5 @@ To play the current version of the game:
 4. Run 'WPFUI.exe'
 5. Enjoy!
 
->>Tutorial is in-game
->>visit my website https://owensteele.co.uk/#portfolio - for current game features list
+>> Tutorial is in-game
+>> visit my website https://owensteele.co.uk/#portfolio - for current game features list
